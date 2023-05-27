@@ -1,3 +1,14 @@
+/*
+Algorithm to solve this problem
+
+1. check last node is qual to head
+2.check first node
+3.check last node
+4.check both
+*/
+
+
+
 class Solution {
     public String isBoundaryNode(ListNode head, ListNode node) {
         if(head==null&& node==null)
@@ -24,3 +35,6 @@ class Solution {
         return "none";
     }
 }
+
+
+
