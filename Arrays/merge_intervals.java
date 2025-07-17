@@ -20,22 +20,24 @@
 // intervals[i].length == 2
 // 0 <= starti <= endi <= 104
 
-
 class Solution {
     public int[][] merge(int[][] intervals) {
+        //Sort Array based on start value of interval
         Arrays.sort(intervals, (a, b) -> Integer.compare(a[0], b[0]));
-
+        //maintain arraylist to maintain all merged intervals
         List<int[]> merged = new ArrayList<>();
 
-        for (int[] interval : intervals) {
-            if (merged.isEmpty() || merged.get(merged.size() - 1)[1] < interval[0]) {
+        for(int[] interval:intervals){
+            // check merged is empty or end value of last interval in merged is less than stat  value of next interval (Non overlapping interval)
+            if(merged.isEmpty() || merged.get(merged.size()-1)[1]<interval[0]){
                 merged.add(interval);
-            } else {
-                merged.get(merged.size() - 1)[1] = 
-                    Math.max(merged.get(merged.size() - 1)[1], interval[1]);
+            }
+            else{
+
+                //extend end value of last merged interval with next intervals end value
+                merged.get(merged.size()-1)[1] = Math.max(merged.get(merged.size()-1)[1],interval[1]);
             }
         }
-
         return merged.toArray(new int[merged.size()][]);
     }
 }
