@@ -20,7 +20,32 @@
 // -10 <= nums[i] <= 10
 // All the numbers of nums are unique.
 
+// Solution 1
+class Solution {
+    public List<List<Integer>> subsets(int[] nums) {
 
+        List<List<Integer>> result = new ArrayList<>();
+        backtrack(nums,result,new ArrayList<>(),0);
+        return result;
+        
+    }
+
+
+    public void backtrack(int[] nums,List<List<Integer>> result,List<Integer> current,int idx){
+        if(idx==nums.length){
+            result.add(new ArrayList<>(current));
+            return;
+        }
+
+        current.add(nums[idx]);
+        backtrack(nums,result,current,idx+1);
+        current.remove(current.size()-1);
+        backtrack(nums,result,current,idx+1);
+    }
+}
+
+
+// Solution 2
 class Solution {
     public List<List<Integer>> subsets(int[] nums) {
         List<List<Integer>> result = new ArrayList<>();
