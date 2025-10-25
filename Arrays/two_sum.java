@@ -39,3 +39,42 @@ class Solution {
         return new int[]{-1, -1};
     }
 }
+
+
+
+// Using Two Pointers
+class Solution {
+    public int[] twoSum(int[] nums, int target) {
+        int n = nums.length;
+        int[][] arr = new int[n][2];
+
+        // Step 1: Store each number with its original index
+        for (int i = 0; i < n; i++) {
+            arr[i][0] = nums[i];  // value
+            arr[i][1] = i;        // original index
+        }
+
+        // Step 2: Sort by value (not index)
+        Arrays.sort(arr, (a, b) -> a[0] - b[0]);
+
+        // Step 3: Apply two-pointer technique
+        int i = 0;
+        int j = n - 1;
+
+        while (i < j) {
+            int sum = arr[i][0] + arr[j][0];
+
+            if (sum == target) {
+                // Return original indices
+                return new int[] {arr[i][1], arr[j][1]};
+            } else if (sum < target) {
+                i++;
+            } else {
+                j--;
+            }
+        }
+
+        // Step 4: No solution (shouldn't happen as per problem guarantee)
+        return new int[] {};
+    }
+}
