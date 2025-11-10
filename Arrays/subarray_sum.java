@@ -21,27 +21,51 @@
 // -107 <= k <= 107
 
 
-public class Solution {
-    public int subarraySum(int[] nums, int k) {
-        int n = nums.length;
-        int[] prefix = new int[n + 1];
+// public class Solution {
+//     public int subarraySum(int[] nums, int k) {
+//         int n = nums.length;
+//         int[] prefix = new int[n + 1];
         
-        // prefix[i] stores the sum of first i elements
-        for (int i = 0; i < n; i++) {
-            prefix[i + 1] = prefix[i] + nums[i];
-        }
+//         // prefix[i] stores the sum of first i elements
+//         for (int i = 0; i < n; i++) {
+//             prefix[i + 1] = prefix[i] + nums[i];
+//         }
 
+//         int count = 0;
+
+//         // Check all subarrays using prefix sums
+//         for (int start = 0; start < n; start++) {
+//             for (int end = start + 1; end <= n; end++) {
+//                 if (prefix[end] - prefix[start] == k) {
+//                     count++;
+//                 }
+//             }
+//         }
+
+//         return count;
+//     }
+// }
+
+class Solution {
+    public int subarraySum(int[] nums, int k) {
         int count = 0;
-
-        // Check all subarrays using prefix sums
-        for (int start = 0; start < n; start++) {
-            for (int end = start + 1; end <= n; end++) {
-                if (prefix[end] - prefix[start] == k) {
-                    count++;
-                }
+        int prefix = 0;
+        HashMap<Integer, Integer> hm = new HashMap<>();
+        hm.put(0, 1);
+        for(int i = 0; i<nums.length; i++){
+            prefix = prefix + nums[i];
+            int other = prefix - k;
+            if(hm.containsKey(other)){
+                count = count + hm.get(other);
+            }
+            
+            if(hm.containsKey(prefix)){
+                hm.put(prefix, hm.get(prefix)+1);
+            }
+            else{
+                hm.put(prefix, 1);
             }
         }
-
         return count;
     }
 }
